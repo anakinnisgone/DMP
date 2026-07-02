@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-discord-bg text-discord-text font-sans antialiased;
+    background-image:
+      radial-gradient(60% 45% at 15% 0%, rgba(88, 101, 242, 0.10), transparent 60%),
+      radial-gradient(50% 40% at 100% 0%, rgba(244, 63, 94, 0.06), transparent 55%);
+    background-attachment: fixed;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #3a3c42 transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #34363c;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #45474e;
+    background-clip: padding-box;
+  }
+
+  :focus-visible {
+    outline: 2px solid #5865f2;
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-discord-card/70 backdrop-blur-md border border-white/5;
+  }
+
+  .glass-strong {
+    @apply bg-discord-elevated/80 backdrop-blur-xl border border-white/10;
+  }
+
+  .card-hover {
+    @apply transition-all duration-200 hover:border-white/10 hover:bg-discord-card/90;
+  }
+
+  .input-base {
+    @apply w-full rounded-lg bg-discord-surface border border-discord-border px-3 py-2 text-sm text-discord-text
+      placeholder:text-discord-faint outline-none transition
+      focus:border-discord-blurple focus:ring-2 focus:ring-discord-blurple/30;
+  }
+
+  .label-base {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-discord-muted;
+  }
+
+  .divider {
+    @apply border-t border-discord-line;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+}
