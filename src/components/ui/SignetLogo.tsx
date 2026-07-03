@@ -13,8 +13,8 @@ export function SignetLogo({ size = 24 }: { size?: number }) {
     >
       <defs>
         <linearGradient id="signet-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="currentColor" opacity="1" />
-          <stop offset="100%" stopColor="currentColor" opacity="0.8" />
+          <stop offset="0%" stopColor="#7C3AED" opacity="1" />
+          <stop offset="100%" stopColor="#A855F7" opacity="1" />
         </linearGradient>
       </defs>
 
