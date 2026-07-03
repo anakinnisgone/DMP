@@ -26,4 +26,9 @@ contextBridge.exposeInMainWorld('desktop', {
     ipcRenderer.on('update:error', listener);
     return () => ipcRenderer.removeListener('update:error', listener);
   },
+  onPreparingUpdate: (cb) => {
+    const listener = () => cb();
+    ipcRenderer.on('app:preparing-update', listener);
+    return () => ipcRenderer.removeListener('app:preparing-update', listener);
+  },
 });

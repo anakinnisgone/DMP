@@ -65,15 +65,27 @@ export function UpdatePanel() {
       setIsVisible(true);
     });
 
+    const offPreparing = bridge.onPreparingUpdate?.(() => {
+      // Uygulama kapanmak üzere - kurulum başlayacak
+      if (process.env.NODE_ENV === 'development') {
+        console.log('[UpdatePanel] App preparing to install update and restart');
+      }
+    });
+
     return () => {
       offAvailable?.();
       offDownloading?.();
       offDownloaded?.();
       offError?.();
+      offPreparing?.();
     };
   }, []);
 
   if (state.status === 'idle') return null;
+
+  const handleRestart = () => {
+    window.desktop?.installUpdate();
+  };
 
   return (
     <AnimatePresence>
@@ -171,7 +183,7 @@ export function UpdatePanel() {
                     )}
                     {state.status === 'downloaded' && (
                       <>
-                        Sürüm <span className="font-semibold text-emerald-500">v{state.version}</span> yüklemeye hazır
+                        Sürüm <span className="font-semibold text-emerald-500">v{state.version}</span> hazır. Yeniden başlat?
                       </>
                     )}
                     {state.status === 'error' && (

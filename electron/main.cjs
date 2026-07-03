@@ -130,12 +130,24 @@ ipcMain.handle('update:check', () => {
   return isDev ? 'dev' : 'ok';
 });
 
-ipcMain.handle('update:install', () => {
+ipcMain.handle('update:install', async () => {
   if (updater && !isDev) {
     try {
+      // Tüm unsaved data kaydet
+      if (mainWindow && !mainWindow.isDestroyed()) {
+        mainWindow.webContents.send('app:preparing-update');
+      }
+
+      // quitAndInstall: Uygulamayı kapatır ve güncellemeyi yüklenir
+      // NSIS kurucusu silent modda çalışmayacak, ama update dosyalarını yükler
       updater.autoUpdater.quitAndInstall();
-    } catch {
-      /* yoksay */
+      return 'installing';
+    } catch (err) {
+      if (process.env.DEBUG_UPDATES) {
+        console.error('Update install error:', err);
+      }
+      return 'error';
     }
   }
+  return isDev ? 'dev' : 'ok';
 });
