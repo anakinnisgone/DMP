@@ -17,6 +17,8 @@ export default {
           faint: '#6a6f78',
           blurple: '#5865f2',
           'blurple-hover': '#4752c4',
+          dark: '#0f0f12',
+          darker: '#0a0a0d',
         },
         role: {
           leader: '#ef4444',

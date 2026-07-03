@@ -2,7 +2,7 @@ import { useState, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, ShieldCheck, X } from 'lucide-react';
 import { Sidebar } from './Sidebar';
-import { UpdateBanner } from '../components/ui/UpdateBanner';
+import { UpdatePanel } from '../components/ui/UpdatePanel';
 import { APP_NAME, APP_VERSION } from '../utils/constants';
 
 export function MainLayout({ children }: { children: ReactNode }) {
@@ -41,7 +41,7 @@ export function MainLayout({ children }: { children: ReactNode }) {
 
       {/* İçerik */}
       <div className="flex min-w-0 flex-1 flex-col">
-        <UpdateBanner />
+        <UpdatePanel />
         {/* Mobil üst bar */}
         <header className="flex items-center justify-between border-b border-discord-line bg-discord-surface/60 px-4 py-3 backdrop-blur-xl lg:hidden">
           <div className="flex items-center gap-2.5">

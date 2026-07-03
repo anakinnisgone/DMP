@@ -11,6 +11,11 @@ contextBridge.exposeInMainWorld('desktop', {
     ipcRenderer.on('update:available', listener);
     return () => ipcRenderer.removeListener('update:available', listener);
   },
+  onUpdateDownloading: (cb) => {
+    const listener = (_e, version) => cb(version);
+    ipcRenderer.on('update:downloading', listener);
+    return () => ipcRenderer.removeListener('update:downloading', listener);
+  },
   onUpdateDownloaded: (cb) => {
     const listener = (_e, version) => cb(version);
     ipcRenderer.on('update:downloaded', listener);

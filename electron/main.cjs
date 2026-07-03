@@ -96,6 +96,9 @@ function setupAutoUpdate() {
   autoUpdater.on('update-downloaded', (info) => {
     send('update:downloaded', info && info.version);
   });
+  autoUpdater.on('download-progress', (progress) => {
+    send('update:downloading', null);
+  });
   autoUpdater.on('error', (err) => {
     send('update:error', String(err));
   });

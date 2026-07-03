@@ -6,6 +6,7 @@ export interface DesktopBridge {
   checkForUpdates: () => Promise<string>;
   installUpdate: () => Promise<void>;
   onUpdateAvailable: (cb: (version?: string) => void) => () => void;
+  onUpdateDownloading: (cb: (version?: string) => void) => () => void;
   onUpdateDownloaded: (cb: (version?: string) => void) => () => void;
   onUpdateError: (cb: (error?: string) => void) => () => void;
 }
