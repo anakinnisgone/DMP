@@ -54,7 +54,7 @@ export function Dashboard() {
     <div>
       <PageHeader
         title="Dashboard"
-        subtitle="Yönetim ekibinin genel görünümü"
+        subtitle="✨ Yönetim ekibinin gerçek zamanlı görünümü"
         icon={ActivityIcon}
       />
 
