@@ -34,6 +34,14 @@ npm run electron:build
 
 > Not: `.exe` derlemesi yalnızca **Windows** üzerinde (veya uygun çapraz derleme ortamında) çalıştırılmalıdır. `electron-builder` ilk çalıştırmada gerekli Windows araçlarını indirir (internet gerekir).
 
+### Tema sistemi (v0.8.4+)
+Uygulama içinde **Ayarlar > Görünüm** bölümünden 3 profesyonel tema arasında geçiş yapabilirsiniz:
+- **🌞 Light:** Profesyonel beyaz arka plan, siyah yazı (gündüz kullanımı)
+- **🌙 Dark:** Modern koyu gri arka plan, beyaz yazı (Discord stili)
+- **🌌 Midnight:** Premium koyu lacivert arka plan, yüksek kontrast (varsayılan)
+
+Seçilen tema otomatik olarak kaydedilir ve uygulama yeniden başlatıldığında geri yüklenir. Tema geçişi sayfayı yeniden yüklemeden anında (300ms) gerçekleşir.
+
 ### NSIS kurulum sihirbazı — kararlı yapılandırma (UAC sonrası boş pencere düzeltmesi)
 **Belirti:** Portable `.exe` sorunsuz çalışırken, `Setup.exe` UAC onayından sonra hiçbir pencere göstermiyordu.
 
