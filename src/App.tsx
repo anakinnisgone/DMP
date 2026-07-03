@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import type { ReactNode } from 'react';
 import { ToastProvider } from './store/ToastContext';
 import { DataProvider } from './store/DataContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { ErrorBoundary } from './components/ui/ErrorBoundary';
 import { MainLayout } from './layouts/MainLayout';
 import { Dashboard } from './pages/Dashboard';
@@ -52,15 +53,17 @@ function AnimatedRoutes() {
 export default function App() {
   return (
     <ErrorBoundary>
-      <ToastProvider>
-        <DataProvider>
-          <Router>
-            <MainLayout>
-              <AnimatedRoutes />
-            </MainLayout>
-          </Router>
-        </DataProvider>
-      </ToastProvider>
+      <ThemeProvider>
+        <ToastProvider>
+          <DataProvider>
+            <Router>
+              <MainLayout>
+                <AnimatedRoutes />
+              </MainLayout>
+            </Router>
+          </DataProvider>
+        </ToastProvider>
+      </ThemeProvider>
     </ErrorBoundary>
   );
 }

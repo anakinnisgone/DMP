@@ -3,8 +3,62 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
+  /* Theme CSS Variables */
+  :root[data-theme='midnight'] {
+    --color-bg: #0B0D12;
+    --color-surface: #111827;
+    --color-cards: #171A24;
+    --color-border: #262B3A;
+    --color-border-light: #2D323F;
+    --color-primary: #7C3AED;
+    --color-primary-hover: #8B5CF6;
+    --color-primary-light: #5B21B6;
+    --color-accent: #A855F7;
+    --color-accent-light: #7C3AED;
+    --color-text-primary: #FFFFFF;
+    --color-text-secondary: #A1A1AA;
+    --color-text-tertiary: #71717A;
+    --color-scrollbar-track: #111827;
+    --color-scrollbar-thumb: #262B3A;
     color-scheme: dark;
+  }
+
+  :root[data-theme='dark'] {
+    --color-bg: #1A1A1A;
+    --color-surface: #2A2A2A;
+    --color-cards: #262626;
+    --color-border: #3F3F3F;
+    --color-border-light: #4B4B4B;
+    --color-primary: #7C3AED;
+    --color-primary-hover: #8B5CF6;
+    --color-primary-light: #4C1D95;
+    --color-accent: #A855F7;
+    --color-accent-light: #6B21A8;
+    --color-text-primary: #FFFFFF;
+    --color-text-secondary: #D4D4D8;
+    --color-text-tertiary: #A1A1AA;
+    --color-scrollbar-track: #2A2A2A;
+    --color-scrollbar-thumb: #404040;
+    color-scheme: dark;
+  }
+
+  :root[data-theme='light'] {
+    --color-bg: #FFFFFF;
+    --color-surface: #F5F5F5;
+    --color-cards: #FFFFFF;
+    --color-border: #E5E7EB;
+    --color-border-light: #F3F4F6;
+    --color-primary: #7C3AED;
+    --color-primary-hover: #6D28D9;
+    --color-primary-light: #EDE9FE;
+    --color-accent: #8B5CF6;
+    --color-accent-light: #F3E8FF;
+    --color-text-primary: #000000;
+    --color-text-secondary: #6B7280;
+    --color-text-tertiary: #9CA3AF;
+    --color-scrollbar-track: #F3F4F6;
+    --color-scrollbar-thumb: #D1D5DB;
+    color-scheme: light;
   }
 
   html,
@@ -14,38 +68,41 @@
   }
 
   body {
-    @apply bg-discord-bg text-discord-text font-sans antialiased;
-    background-image:
-      radial-gradient(60% 45% at 15% 0%, rgba(88, 101, 242, 0.10), transparent 60%),
-      radial-gradient(50% 40% at 100% 0%, rgba(244, 63, 94, 0.06), transparent 55%);
+    @apply font-sans antialiased transition-colors duration-300;
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
     background-attachment: fixed;
   }
 
   * {
     scrollbar-width: thin;
-    scrollbar-color: #3a3c42 transparent;
+    scrollbar-color: var(--color-scrollbar-thumb) transparent;
   }
 
   ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
   }
+
   ::-webkit-scrollbar-track {
     background: transparent;
   }
+
   ::-webkit-scrollbar-thumb {
-    background: #34363c;
+    background: var(--color-scrollbar-thumb);
     border-radius: 999px;
     border: 2px solid transparent;
     background-clip: padding-box;
+    transition: background-color 300ms ease;
   }
+
   ::-webkit-scrollbar-thumb:hover {
-    background: #45474e;
+    background: var(--color-border);
     background-clip: padding-box;
   }
 
   :focus-visible {
-    outline: 2px solid #5865f2;
+    outline: 2px solid var(--color-primary);
     outline-offset: 2px;
   }
 

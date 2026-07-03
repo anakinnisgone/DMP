@@ -6,6 +6,7 @@ import {
   RotateCcw,
   Database,
   Info,
+  Palette,
 } from 'lucide-react';
 import { useData } from '../store/DataContext';
 import { getRawSize } from '../utils/storage';
@@ -16,6 +17,7 @@ import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { ConfirmDialog } from '../components/ui/ConfirmDialog';
 import { CrestLogo } from '../components/ui/CrestLogo';
+import { ThemeSelector } from '../components/ThemeSelector';
 import { useToast } from '../store/ToastContext';
 
 export function Settings() {
@@ -58,6 +60,12 @@ export function Settings() {
       <PageHeader title="Ayarlar" subtitle="Veri yönetimi ve uygulama bilgisi" icon={SettingsIcon} />
 
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+        {/* Appearance / Theme */}
+        <Card padding="lg">
+          <SectionTitle icon={Palette}>Görünüm</SectionTitle>
+          <ThemeSelector />
+        </Card>
+
         {/* Veri yönetimi */}
         <Card padding="lg">
           <SectionTitle icon={Database}>Veri Yönetimi</SectionTitle>
