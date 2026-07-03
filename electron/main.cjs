@@ -173,15 +173,18 @@ function setupAutoUpdate() {
   debugLog('');
   debugLog('--- Checking updater configuration ---');
 
-  // Read build config
+  // Read build config & setup update provider
   try {
     const packageJson = require(path.join(app.getAppPath(), 'package.json'));
     debugLog(`Package name: ${packageJson.name}`);
     debugLog(`Package version: ${packageJson.version}`);
 
+    let publishConfig = null;
+
     if (packageJson.build && packageJson.build.publish) {
-      debugLog('Publish config found:');
-      packageJson.build.publish.forEach((pub, idx) => {
+      debugLog('Publish config found in package.json:');
+      publishConfig = packageJson.build.publish;
+      publishConfig.forEach((pub, idx) => {
         debugLog(`  [${idx}] Provider: ${pub.provider}`);
         if (pub.provider === 'github') {
           debugLog(`      Owner: ${pub.owner}`);
@@ -190,10 +193,36 @@ function setupAutoUpdate() {
         }
       });
     } else {
-      debugLog('❌ No publish config found in package.json!');
+      debugLog('⚠️ No publish config in package.json - using hardcoded config');
+      publishConfig = [{
+        provider: 'github',
+        owner: 'anakinnisgone',
+        repo: 'DMP',
+        releaseType: 'release'
+      }];
+      debugLog('Hardcoded config applied:');
+      debugLog('  Provider: github');
+      debugLog('  Owner: anakinnisgone');
+      debugLog('  Repo: DMP');
+      debugLog('  Release Type: release');
     }
+
+    autoUpdater.setFeedURL({
+      provider: 'github',
+      owner: 'anakinnisgone',
+      repo: 'DMP',
+      releaseType: 'release'
+    });
+
   } catch (err) {
     debugLog(`Error reading package.json: ${err.message}`);
+    debugLog('Applying hardcoded GitHub config fallback');
+    autoUpdater.setFeedURL({
+      provider: 'github',
+      owner: 'anakinnisgone',
+      repo: 'DMP',
+      releaseType: 'release'
+    });
   }
 
   // DEBUG: Check autoUpdater properties
