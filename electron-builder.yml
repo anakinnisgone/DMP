@@ -3,10 +3,13 @@ productName: Discord Manager Panel
 directories:
   output: release
   buildResources: build
+extraResources:
+  - build/**/*
 
 files:
   - dist/**/*
   - electron/**/*
+  - build/**/*
   - package.json
 
 win:

@@ -55,6 +55,14 @@ console.log('='.repeat(80));
 console.log('Discord Manager Panel - Electron Main Process Starting');
 console.log('='.repeat(80));
 
+function getIconPath() {
+  if (isDev) {
+    return path.join(__dirname, '..', 'build', 'icon.ico');
+  } else {
+    return path.join(process.resourcesPath, 'build', 'icon.ico');
+  }
+}
+
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1280,
@@ -64,7 +72,7 @@ function createWindow() {
     backgroundColor: '#0b0d12',
     autoHideMenuBar: true,
     show: false,
-    icon: path.join(__dirname, '..', 'build', 'icon.ico'),
+    icon: getIconPath(),
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),
       contextIsolation: true,
