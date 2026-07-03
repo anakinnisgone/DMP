@@ -1,109 +1,109 @@
 {
-  "name": "discord-yonetim-paneli",
-  "private": true,
-  "version": "0.8.3",
-  "type": "module",
-  "description": "Discord sunucusu yönetim ekibi takip paneli",
-  "author": "Reaper Guild",
-  "main": "electron/main.cjs",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "lint": "eslint .",
-    "electron:dev": "concurrently -k \"cross-env ELECTRON=1 vite\" \"wait-on tcp:127.0.0.1:5173 && cross-env ELECTRON=1 electron .\"",
-    "electron:preview": "cross-env ELECTRON=1 vite build && electron .",
-    "electron:build": "cross-env ELECTRON=1 vite build && electron-builder --win"
-  },
-  "build": {
-    "appId": "com.reaperguild.discordmanagerpanel",
-    "productName": "Discord Manager Panel",
-    "copyright": "Copyright © 2026 Reaper Guild",
-    "directories": {
-      "output": "release",
-      "buildResources": "build"
-    },
-    "files": [
-      "dist/**/*",
-      "electron/**/*",
-      "build/**/*",
-      "package.json"
-    ],
-    "win": {
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64"
-          ]
-        },
-        {
-          "target": "portable",
-          "arch": [
-            "x64"
-          ]
-        }
-      ],
-      "icon": "build/icon.ico"
-    },
-    "nsis": {
-      "oneClick": false,
-      "perMachine": false,
-      "allowElevation": false,
-      "allowToChangeInstallationDirectory": true,
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true,
-      "runAfterFinish": true,
-      "installerIcon": "build/icon.ico",
-      "uninstallerIcon": "build/icon.ico",
-      "installerHeaderIcon": "build/icon.ico",
-      "differentialPackage": true,
-      "deleteAppDataOnUninstall": false
-    },
-    "portable": {
-      "artifactName": "DiscordManagerPanel-${version}-portable.exe"
-    },
-    "publish": [
-      {
-        "provider": "github",
-        "owner": "anakinnisgone",
-        "repo": "DMP",
-        "releaseType": "release"
-      }
-    ]
-  },
-  "dependencies": {
-    "electron-log": "^5.4.4",
-    "electron-updater": "^6.3.9",
-    "framer-motion": "^11.5.4",
-    "lucide-react": "^0.441.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.26.2",
-    "recharts": "^2.12.7"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.11.1",
-    "@types/react": "^18.3.5",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.1",
-    "autoprefixer": "^10.4.20",
-    "concurrently": "^9.1.0",
-    "cross-env": "^7.0.3",
-    "electron": "^33.2.0",
-    "electron-builder": "^25.1.8",
-    "eslint": "^9.11.1",
-    "eslint-plugin-react-hooks": "^5.1.0",
-    "eslint-plugin-react-refresh": "^0.4.12",
-    "globals": "^15.9.0",
-    "jimp": "^1.6.1",
-    "postcss": "^8.4.47",
-    "sharp": "^0.35.3",
-    "tailwindcss": "^3.4.13",
-    "to-ico": "^1.1.5",
-    "typescript": "^5.5.4",
-    "typescript-eslint": "^8.7.0",
-    "vite": "^5.4.8",
-    "wait-on": "^8.0.1"
-  }
+    "name":  "discord-yonetim-paneli",
+    "private":  true,
+    "version":  "0.8.4",
+    "type":  "module",
+    "description":  "Discord sunucusu yönetim ekibi takip paneli",
+    "author":  "Reaper Guild",
+    "main":  "electron/main.cjs",
+    "scripts":  {
+                    "dev":  "vite",
+                    "build":  "tsc \u0026\u0026 vite build",
+                    "preview":  "vite preview",
+                    "lint":  "eslint .",
+                    "electron:dev":  "concurrently -k \"cross-env ELECTRON=1 vite\" \"wait-on tcp:127.0.0.1:5173 \u0026\u0026 cross-env ELECTRON=1 electron .\"",
+                    "electron:preview":  "cross-env ELECTRON=1 vite build \u0026\u0026 electron .",
+                    "electron:build":  "cross-env ELECTRON=1 vite build \u0026\u0026 electron-builder --win"
+                },
+    "build":  {
+                  "appId":  "com.reaperguild.discordmanagerpanel",
+                  "productName":  "Discord Manager Panel",
+                  "copyright":  "Copyright © 2026 Reaper Guild",
+                  "directories":  {
+                                      "output":  "release",
+                                      "buildResources":  "build"
+                                  },
+                  "files":  [
+                                "dist/**/*",
+                                "electron/**/*",
+                                "build/**/*",
+                                "package.json"
+                            ],
+                  "win":  {
+                              "target":  [
+                                             {
+                                                 "target":  "nsis",
+                                                 "arch":  [
+                                                              "x64"
+                                                          ]
+                                             },
+                                             {
+                                                 "target":  "portable",
+                                                 "arch":  [
+                                                              "x64"
+                                                          ]
+                                             }
+                                         ],
+                              "icon":  "build/icon.ico"
+                          },
+                  "nsis":  {
+                               "oneClick":  false,
+                               "perMachine":  false,
+                               "allowElevation":  false,
+                               "allowToChangeInstallationDirectory":  true,
+                               "createDesktopShortcut":  true,
+                               "createStartMenuShortcut":  true,
+                               "runAfterFinish":  true,
+                               "installerIcon":  "build/icon.ico",
+                               "uninstallerIcon":  "build/icon.ico",
+                               "installerHeaderIcon":  "build/icon.ico",
+                               "differentialPackage":  true,
+                               "deleteAppDataOnUninstall":  false
+                           },
+                  "portable":  {
+                                   "artifactName":  "DiscordManagerPanel-${version}-portable.exe"
+                               },
+                  "publish":  [
+                                  {
+                                      "provider":  "github",
+                                      "owner":  "anakinnisgone",
+                                      "repo":  "DMP",
+                                      "releaseType":  "release"
+                                  }
+                              ]
+              },
+    "dependencies":  {
+                         "electron-log":  "^5.4.4",
+                         "electron-updater":  "^6.3.9",
+                         "framer-motion":  "^11.5.4",
+                         "lucide-react":  "^0.441.0",
+                         "react":  "^18.3.1",
+                         "react-dom":  "^18.3.1",
+                         "react-router-dom":  "^6.26.2",
+                         "recharts":  "^2.12.7"
+                     },
+    "devDependencies":  {
+                            "@eslint/js":  "^9.11.1",
+                            "@types/react":  "^18.3.5",
+                            "@types/react-dom":  "^18.3.0",
+                            "@vitejs/plugin-react":  "^4.3.1",
+                            "autoprefixer":  "^10.4.20",
+                            "concurrently":  "^9.1.0",
+                            "cross-env":  "^7.0.3",
+                            "electron":  "^33.2.0",
+                            "electron-builder":  "^25.1.8",
+                            "eslint":  "^9.11.1",
+                            "eslint-plugin-react-hooks":  "^5.1.0",
+                            "eslint-plugin-react-refresh":  "^0.4.12",
+                            "globals":  "^15.9.0",
+                            "jimp":  "^1.6.1",
+                            "postcss":  "^8.4.47",
+                            "sharp":  "^0.35.3",
+                            "tailwindcss":  "^3.4.13",
+                            "to-ico":  "^1.1.5",
+                            "typescript":  "^5.5.4",
+                            "typescript-eslint":  "^8.7.0",
+                            "vite":  "^5.4.8",
+                            "wait-on":  "^8.0.1"
+                        }
 }
