@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ShieldCheck } from 'lucide-react';
 import { NAV_ITEMS, APP_NAME, APP_VERSION } from '../utils/constants';
 import { useData } from '../store/DataContext';
+import { CompactLogo } from '../components/ui/CompactLogo';
 
 interface SidebarProps {
   onNavigate?: () => void;
@@ -16,7 +16,7 @@ export function Sidebar({ onNavigate }: SidebarProps) {
       {/* Marka */}
       <div className="flex items-center gap-3 px-5 py-5">
         <span className="grid h-10 w-10 place-items-center rounded-xl bg-discord-blurple text-white shadow-lg shadow-discord-blurple/30">
-          <ShieldCheck size={22} />
+          <CompactLogo size={22} />
         </span>
         <div className="min-w-0">
           <div className="flex items-center gap-1.5">

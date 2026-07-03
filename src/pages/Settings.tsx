@@ -6,7 +6,6 @@ import {
   RotateCcw,
   Database,
   Info,
-  ShieldCheck,
 } from 'lucide-react';
 import { useData } from '../store/DataContext';
 import { getRawSize } from '../utils/storage';
@@ -16,6 +15,7 @@ import { PageHeader, SectionTitle } from '../components/ui/Common';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { ConfirmDialog } from '../components/ui/ConfirmDialog';
+import { CrestLogo } from '../components/ui/CrestLogo';
 import { useToast } from '../store/ToastContext';
 
 export function Settings() {
@@ -113,8 +113,8 @@ export function Settings() {
           <Card padding="lg">
             <SectionTitle icon={Info}>Hakkında</SectionTitle>
             <div className="flex items-start gap-3">
-              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-discord-blurple/10 text-discord-blurple">
-                <ShieldCheck size={20} />
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-discord-blurple text-white">
+                <CrestLogo size={20} />
               </span>
               <div className="text-sm text-discord-muted">
                 <p className="font-semibold text-discord-text">{APP_NAME} <span className="text-discord-faint">v{APP_VERSION}</span></p>

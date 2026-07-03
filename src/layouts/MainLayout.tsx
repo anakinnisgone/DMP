@@ -1,8 +1,9 @@
 import { useState, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Menu, ShieldCheck, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Sidebar } from './Sidebar';
 import { UpdatePanel } from '../components/ui/UpdatePanel';
+import { CompactLogo } from '../components/ui/CompactLogo';
 import { APP_NAME, APP_VERSION } from '../utils/constants';
 
 export function MainLayout({ children }: { children: ReactNode }) {
@@ -46,7 +47,7 @@ export function MainLayout({ children }: { children: ReactNode }) {
         <header className="flex items-center justify-between border-b border-discord-line bg-discord-surface/60 px-4 py-3 backdrop-blur-xl lg:hidden">
           <div className="flex items-center gap-2.5">
             <span className="grid h-8 w-8 place-items-center rounded-lg bg-discord-blurple text-white">
-              <ShieldCheck size={18} />
+              <CompactLogo size={18} />
             </span>
             <span className="font-display text-sm font-bold">{APP_NAME}</span>
             <span className="rounded-full bg-discord-blurple/15 px-1.5 py-0.5 text-[10px] font-semibold text-discord-blurple">
