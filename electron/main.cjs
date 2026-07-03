@@ -284,15 +284,15 @@ function setupAutoUpdate() {
   // Now trigger check
   debugLog('');
   debugLog('='.repeat(80));
-  debugLog('CALLING: autoUpdater.checkForUpdatesAndNotify()');
+  debugLog('CALLING: autoUpdater.checkForUpdates()');
   debugLog('='.repeat(80));
 
   try {
-    const checkPromise = autoUpdater.checkForUpdatesAndNotify();
+    const checkPromise = autoUpdater.checkForUpdates();
 
     checkPromise
       .then(result => {
-        debugLog('✅ checkForUpdatesAndNotify RESOLVED');
+        debugLog('✅ checkForUpdates RESOLVED');
         if (result) {
           debugLog(`   Update found: ${result.updateInfo ? result.updateInfo.version : 'unknown'}`);
         } else {
@@ -300,13 +300,13 @@ function setupAutoUpdate() {
         }
       })
       .catch(err => {
-        debugLog('❌ checkForUpdatesAndNotify REJECTED');
+        debugLog('❌ checkForUpdates REJECTED');
         debugLog(`   Error: ${err.message}`);
         debugLog(`   Stack: ${err.stack}`);
       });
 
   } catch (err) {
-    debugLog('❌ Exception in checkForUpdatesAndNotify:');
+    debugLog('❌ Exception in checkForUpdates:');
     debugLog(`   Message: ${err.message}`);
     debugLog(`   Stack: ${err.stack}`);
   }
