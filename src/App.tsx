@@ -2,6 +2,7 @@ import { BrowserRouter, HashRouter, Routes, Route, useLocation } from 'react-rou
 import { AnimatePresence, motion } from 'framer-motion';
 import type { ReactNode } from 'react';
 import { ToastProvider } from './store/ToastContext';
+import { DataStateProvider } from './store/DataStateContext';
 import { DataProvider } from './store/DataContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { ErrorBoundary } from './components/ui/ErrorBoundary';
@@ -55,13 +56,15 @@ export default function App() {
     <ErrorBoundary>
       <ThemeProvider>
         <ToastProvider>
-          <DataProvider>
-            <Router>
-              <MainLayout>
-                <AnimatedRoutes />
-              </MainLayout>
-            </Router>
-          </DataProvider>
+          <DataStateProvider>
+            <DataProvider>
+              <Router>
+                <MainLayout>
+                  <AnimatedRoutes />
+                </MainLayout>
+              </Router>
+            </DataProvider>
+          </DataStateProvider>
         </ToastProvider>
       </ThemeProvider>
     </ErrorBoundary>

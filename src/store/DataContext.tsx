@@ -2,9 +2,6 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
-  useMemo,
-  useState,
   type ReactNode,
 } from 'react';
 import type {
@@ -20,8 +17,8 @@ import type {
   Task,
   TaskStatus,
 } from '../types';
-import { createSeedData } from '../data/seedData';
-import { loadData, saveData, validateImport } from '../utils/storage';
+import { validateImport } from '../utils/storage';
+import { useDataState } from './DataStateContext';
 import { download, nowISO, performanceAverage, progressForStatus, uid } from '../utils/helpers';
 import { TRAINING_MODULES } from '../utils/constants';
 import { useToast } from './ToastContext';
@@ -78,12 +75,7 @@ const DataContext = createContext<DataContextValue | null>(null);
 
 export function DataProvider({ children }: { children: ReactNode }) {
   const toast = useToast();
-  const [data, setData] = useState<AppData>(() => loadData());
-
-  // LocalStorage senkronizasyonu
-  useEffect(() => {
-    saveData(data);
-  }, [data]);
+  const { data, setData } = useDataState();
 
   const logActivity = (
     prev: AppData,
@@ -414,14 +406,16 @@ export function DataProvider({ children }: { children: ReactNode }) {
       toast.error('İçe aktarma başarısız', 'Geçersiz dosya biçimi');
       return false;
     }
-    setData(valid);
+    setData(() => valid);
     toast.success('Veriler içe aktarıldı');
     return true;
   };
 
   const resetData: DataContextValue['resetData'] = () => {
+    // Import seed data locally to avoid circular dependency
+    const { createSeedData } = require('../data/seedData');
     const seed = createSeedData();
-    setData(seed);
+    setData(() => seed);
     toast.info('Tüm veriler sıfırlandı');
   };
 
@@ -445,43 +439,39 @@ export function DataProvider({ children }: { children: ReactNode }) {
     toast.info('Aktivite akışı temizlendi');
   };
 
-  const value = useMemo<DataContextValue>(
-    () => ({
-      data,
-      getStaff,
-      staffTasks,
-      staffNotes,
-      staffDiscipline,
-      addStaff,
-      updateStaff,
-      deleteStaff,
-      deleteStaffMany,
-      togglePinStaff,
-      setPromotionStatus,
-      togglePromotionCandidate,
-      updatePerformance,
-      addFeedback,
-      toggleTraining,
-      addTask,
-      updateTask,
-      deleteTask,
-      setTaskStatus,
-      togglePinTask,
-      addNote,
-      deleteNote,
-      addDiscipline,
-      updateDiscipline,
-      deleteDiscipline,
-      exportData,
-      importData,
-      resetData,
-      deleteActivity,
-      deleteActivities,
-      clearActivities,
-    }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data, getStaff, staffTasks, staffNotes, staffDiscipline],
-  );
+  const value: DataContextValue = {
+    data,
+    getStaff,
+    staffTasks,
+    staffNotes,
+    staffDiscipline,
+    addStaff,
+    updateStaff,
+    deleteStaff,
+    deleteStaffMany,
+    togglePinStaff,
+    setPromotionStatus,
+    togglePromotionCandidate,
+    updatePerformance,
+    addFeedback,
+    toggleTraining,
+    addTask,
+    updateTask,
+    deleteTask,
+    setTaskStatus,
+    togglePinTask,
+    addNote,
+    deleteNote,
+    addDiscipline,
+    updateDiscipline,
+    deleteDiscipline,
+    exportData,
+    importData,
+    resetData,
+    deleteActivity,
+    deleteActivities,
+    clearActivities,
+  };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 }
