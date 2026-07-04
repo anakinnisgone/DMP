@@ -14,12 +14,12 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const VARIANTS: Record<Variant, string> = {
   primary:
-    'bg-discord-blurple text-white hover:bg-discord-blurple-hover shadow-sm active:scale-[0.98]',
+    'bg-discord-blurple text-white hover:bg-discord-blurple-hover shadow-sm active:scale-[0.98] disabled:bg-discord-muted disabled:text-discord-faint',
   secondary:
-    'bg-discord-elevated text-discord-text border border-discord-border hover:bg-discord-hover',
-  ghost: 'text-discord-muted hover:text-discord-text hover:bg-white/5',
-  danger: 'bg-red-500/90 text-white hover:bg-red-500 active:scale-[0.98]',
-  subtle: 'bg-white/5 text-discord-text hover:bg-white/10 border border-white/5',
+    'bg-discord-elevated text-discord-text border border-discord-border hover:bg-discord-hover disabled:bg-discord-surface disabled:text-discord-faint disabled:border-discord-faint',
+  ghost: 'text-discord-muted hover:text-discord-text hover:bg-white/5 disabled:text-discord-faint disabled:hover:bg-transparent',
+  danger: 'bg-red-500/90 text-white hover:bg-red-500 active:scale-[0.98] disabled:bg-red-500/50 disabled:text-white/70',
+  subtle: 'bg-white/5 text-discord-text hover:bg-white/10 border border-white/5 disabled:bg-white/2 disabled:text-discord-faint disabled:border-white/2',
 };
 
 const SIZES: Record<Size, string> = {
@@ -39,7 +39,7 @@ export function Button({
 }: ButtonProps) {
   return (
     <button
-      className={`inline-flex select-none items-center rounded-lg font-medium transition-all duration-150 disabled:cursor-not-allowed disabled:opacity-50 ${VARIANTS[variant]} ${SIZES[size]} ${className}`}
+      className={`inline-flex select-none items-center rounded-lg font-medium transition-all duration-150 disabled:cursor-not-allowed ${VARIANTS[variant]} ${SIZES[size]} ${className}`}
       {...rest}
     >
       {Icon && <Icon size={size === 'sm' ? 14 : 16} />}

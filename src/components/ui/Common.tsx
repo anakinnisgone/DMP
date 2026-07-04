@@ -44,7 +44,7 @@ export function EmptyState({
 }) {
   return (
     <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-discord-border/60 bg-discord-surface/30 px-6 py-14 text-center">
-      <span className="grid h-12 w-12 place-items-center rounded-2xl bg-white/5 text-discord-faint">
+      <span className="grid h-12 w-12 place-items-center rounded-2xl bg-discord-blurple/10 text-discord-muted">
         <Icon size={22} />
       </span>
       <div>
