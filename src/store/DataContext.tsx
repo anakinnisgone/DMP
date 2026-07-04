@@ -22,6 +22,7 @@ import { useDataState } from './DataStateContext';
 import { download, nowISO, performanceAverage, progressForStatus, uid } from '../utils/helpers';
 import { TRAINING_MODULES } from '../utils/constants';
 import { useToast } from './ToastContext';
+import { createSeedData } from '../data/seedData';
 
 interface DataContextValue {
   data: AppData;
@@ -412,8 +413,6 @@ export function DataProvider({ children }: { children: ReactNode }) {
   };
 
   const resetData: DataContextValue['resetData'] = () => {
-    // Import seed data locally to avoid circular dependency
-    const { createSeedData } = require('../data/seedData');
     const seed = createSeedData();
     setData(() => seed);
     toast.info('Tüm veriler sıfırlandı');

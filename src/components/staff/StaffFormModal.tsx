@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import type { ProStaffTrack, Role, Staff } from '../../types';
 import { ROLE_CONFIG, TRACK_CONFIG } from '../../utils/constants';
 import { Modal } from '../ui/Modal';
@@ -53,7 +53,11 @@ export function StaffFormModal({ open, onClose, staff }: StaffFormModalProps) {
 
   const canSave = name.trim().length > 0 && username.trim().length > 0;
 
-  const handleSave = () => {
+  const handleClose = useCallback(() => {
+    onClose();
+  }, [onClose]);
+
+  const handleSave = useCallback(() => {
     if (!canSave) return;
     const base = {
       name: name.trim(),
@@ -80,18 +84,18 @@ export function StaffFormModal({ open, onClose, staff }: StaffFormModalProps) {
         lastActive: nowISO(),
       });
     }
-    onClose();
-  };
+    handleClose();
+  }, [editing, staff, name, username, role, track, hasTeam, team, teamSize, disciplineScore, evaluation, canSave, addStaff, updateStaff, handleClose]);
 
   return (
     <Modal
       open={open}
-      onClose={onClose}
+      onClose={handleClose}
       title={editing ? 'Personeli Düzenle' : 'Yeni Personel'}
       description={editing ? 'Bilgileri güncelle' : 'Ekibe yeni bir personel ekle'}
       footer={
         <>
-          <Button variant="ghost" onClick={onClose}>
+          <Button variant="ghost" onClick={handleClose}>
             Vazgeç
           </Button>
           <Button variant="primary" onClick={handleSave} disabled={!canSave}>

@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState } from 'react';
 import { Users, Plus, CheckSquare, Trash2, X } from 'lucide-react';
 import type { Role } from '../types';
 import { useData } from '../store/DataContext';
@@ -21,13 +21,6 @@ const FILTERS: { value: Filter; label: string }[] = [
 export function Staff() {
   const { data, deleteStaffMany } = useData();
   const [filter, setFilter] = useState<Filter>('all');
-
-  useEffect(() => {
-    console.log('[Staff Page] Mounted/Updated - Data loaded:', {
-      staffCount: data.staff.length,
-      timestamp: new Date().toISOString(),
-    });
-  }, [data.staff.length]);
   const [search, setSearch] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
 

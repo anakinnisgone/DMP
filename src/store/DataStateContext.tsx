@@ -3,10 +3,10 @@ import {
   useContext,
   useState,
   useEffect,
+  useRef,
   type ReactNode,
 } from 'react';
 import type { AppData } from '../types';
-import { createSeedData } from '../data/seedData';
 import { loadData, saveData } from '../utils/storage';
 
 interface DataStateContextValue {
@@ -18,15 +18,24 @@ const DataStateContext = createContext<DataStateContextValue | null>(null);
 
 export function DataStateProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<AppData>(() => loadData());
+  const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    if (process.env.NODE_ENV === 'development') {
-      console.log('[DataStateContext] Syncing to localStorage', {
-        staffCount: data.staff.length,
-        taskCount: data.tasks.length,
-      });
+    // Debounce localStorage saves (500ms) to prevent excessive I/O during rapid updates
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current);
     }
-    saveData(data);
+
+    saveTimeoutRef.current = setTimeout(() => {
+      saveData(data);
+      saveTimeoutRef.current = null;
+    }, 500);
+
+    return () => {
+      if (saveTimeoutRef.current) {
+        clearTimeout(saveTimeoutRef.current);
+      }
+    };
   }, [data]);
 
   const value: DataStateContextValue = { data, setData };

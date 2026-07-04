@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState } from 'react';
 import { ClipboardList, Plus, LayoutList, Columns3 } from 'lucide-react';
 import type { Task, TaskPriority, TaskStatus } from '../types';
 import { useData } from '../store/DataContext';
@@ -14,13 +14,6 @@ type ViewMode = 'list' | 'kanban';
 export function Tasks() {
   const { data } = useData();
   const [view, setView] = useState<ViewMode>('list');
-
-  useEffect(() => {
-    console.log('[Tasks Page] Mounted/Updated - Data loaded:', {
-      taskCount: data.tasks.length,
-      timestamp: new Date().toISOString(),
-    });
-  }, [data.tasks.length]);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<TaskStatus | 'all'>('all');
   const [priorityFilter, setPriorityFilter] = useState<TaskPriority | 'all'>('all');

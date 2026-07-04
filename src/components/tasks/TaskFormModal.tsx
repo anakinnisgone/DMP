@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useState, useCallback, type ReactNode } from 'react';
 import type { Task, TaskFrequency, TaskPriority, TaskStatus } from '../../types';
 import { OWNER_NAME, PRIORITY_CONFIG, STATUS_CONFIG } from '../../utils/constants';
 import { Modal } from '../ui/Modal';
@@ -51,7 +51,11 @@ export function TaskFormModal({ open, onClose, task, defaultStaffId }: TaskFormM
 
   const canSave = title.trim().length > 0 && staffId.length > 0;
 
-  const handleSave = () => {
+  const handleClose = useCallback(() => {
+    onClose();
+  }, [onClose]);
+
+  const handleSave = useCallback(() => {
     if (!canSave) return;
     const parsedTags = tags
       .split(',')
@@ -78,19 +82,19 @@ export function TaskFormModal({ open, onClose, task, defaultStaffId }: TaskFormM
     } else {
       addTask(payload);
     }
-    onClose();
-  };
+    handleClose();
+  }, [canSave, tags, staffId, title, description, priority, status, frequency, dueDate, assignedBy, task, editing, updateTask, addTask, handleClose]);
 
   return (
     <Modal
       open={open}
-      onClose={onClose}
+      onClose={handleClose}
       title={editing ? 'Görevi Düzenle' : 'Yeni Görev'}
       description={editing ? undefined : 'Bir personele yeni görev atayın.'}
       size="lg"
       footer={
         <>
-          <Button variant="ghost" onClick={onClose}>
+          <Button variant="ghost" onClick={handleClose}>
             Vazgeç
           </Button>
           <Button variant="primary" onClick={handleSave} disabled={!canSave}>
