@@ -83,7 +83,7 @@ export function TaskFormModal({ open, onClose, task, defaultStaffId }: TaskFormM
       addTask(payload);
     }
     handleClose();
-  }, [canSave, tags, staffId, title, description, priority, status, frequency, dueDate, assignedBy, task, editing, updateTask, addTask, handleClose]);
+  }, [canSave, tags, staffId, title, description, priority, status, frequency, dueDate, assignedBy, notes, task, editing, updateTask, addTask, handleClose]);
 
   return (
     <Modal

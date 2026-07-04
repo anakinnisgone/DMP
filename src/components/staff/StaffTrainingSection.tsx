@@ -3,7 +3,6 @@ import type { Staff } from '../../types';
 import { TRAINING_MODULES } from '../../utils/constants';
 import { trainingProgress } from '../../utils/helpers';
 import { useData } from '../../store/DataContext';
-import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';
 import { ProgressBar } from '../ui/ProgressBar';
 import { SectionTitle } from '../ui/Common';

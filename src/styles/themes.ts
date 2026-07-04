@@ -1,4 +1,4 @@
-export type Theme = 'light' | 'dark' | 'midnight';
+export type Theme = 'dark' | 'midnight';
 
 export interface ThemeColors {
   background: string;
@@ -29,34 +29,6 @@ export interface ThemeColors {
 }
 
 export const themes: Record<Theme, ThemeColors> = {
-  light: {
-    background: '#FFFFFF',
-    surface: '#F5F5F5',
-    cards: '#FFFFFF',
-    border: '#E5E7EB',
-    borderLight: '#F3F4F6',
-    primary: '#7C3AED',
-    primaryHover: '#6D28D9',
-    primaryLight: '#EDE9FE',
-    accent: '#8B5CF6',
-    accentLight: '#F3E8FF',
-    text: {
-      primary: '#000000',
-      secondary: '#6B7280',
-      tertiary: '#9CA3AF',
-    },
-    status: {
-      success: '#10B981',
-      warning: '#F59E0B',
-      error: '#EF4444',
-      info: '#3B82F6',
-    },
-    scrollbar: {
-      track: '#F3F4F6',
-      thumb: '#D1D5DB',
-    },
-  },
-
   dark: {
     background: '#1A1A1A',
     surface: '#2A2A2A',

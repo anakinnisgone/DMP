@@ -1,13 +1,11 @@
 import { useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, AlertTriangle, Pin, Pencil, Trash2 } from 'lucide-react';
-import type { Staff as StaffType } from '../types';
 import { useData } from '../store/DataContext';
 import { ROLE_CONFIG, TRACK_CONFIG } from '../utils/constants';
 import { staffTaskCounts } from '../utils/helpers';
 import { Avatar } from '../components/ui/Avatar';
 import { Button } from '../components/ui/Button';
-import { Card } from '../components/ui/Card';
 import { RoleBadge, PromotionBadge } from '../components/ui/Badge';
 import { ConfirmDialog } from '../components/ui/ConfirmDialog';
 import { EmptyState } from '../components/ui/Common';
@@ -22,7 +20,7 @@ import { StaffTrainingSection } from '../components/staff/StaffTrainingSection';
 export function StaffDetail() {
   const { id = '' } = useParams();
   const navigate = useNavigate();
-  const { getStaff, staffTasks, staffNotes, staffDiscipline, data, togglePinStaff, deleteStaff, togglePromotionCandidate } = useData();
+  const { getStaff, staffTasks, staffNotes, staffDiscipline, data, togglePinStaff, deleteStaff } = useData();
 
   const staff = getStaff(id);
   const [editStaff, setEditStaff] = useState(false);

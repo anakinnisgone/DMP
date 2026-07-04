@@ -12,7 +12,7 @@ contextBridge.exposeInMainWorld('desktop', {
     return () => ipcRenderer.removeListener('update:available', listener);
   },
   onUpdateDownloading: (cb) => {
-    const listener = (_e, version) => cb(version);
+    const listener = (_e, data) => cb(data);
     ipcRenderer.on('update:downloading', listener);
     return () => ipcRenderer.removeListener('update:downloading', listener);
   },

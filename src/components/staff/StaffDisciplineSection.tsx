@@ -85,7 +85,7 @@ export function StaffDisciplineSection({ staffId, records }: StaffDisciplineSect
         <div className="space-y-4">
           <div>
             <label className="label-base">Ciddiyeti</label>
-            <select value={discSeverity} onChange={(e) => setDiscSeverity(e.target.value as any)} className="input-base">
+            <select value={discSeverity} onChange={(e) => setDiscSeverity(e.target.value as 'high' | 'medium' | 'low')} className="input-base">
               <option value="low">Düşük</option>
               <option value="medium">Orta</option>
               <option value="high">Yüksek</option>

@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { ThemeContext, ThemeContextType } from '../context/ThemeContext';
-import { getThemeColors, Theme, ThemeColors } from '../styles/themes';
+import { getThemeColors, ThemeColors } from '../styles/themes';
 
 interface UseThemeReturn extends ThemeContextType {
   colors: ThemeColors;

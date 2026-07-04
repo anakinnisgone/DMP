@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MessageSquare, Plus, Trash } from 'lucide-react';
+import { MessageSquare, Plus } from 'lucide-react';
 import type { Staff, Feedback } from '../../types';
 import { useData } from '../../store/DataContext';
 import { formatDate } from '../../utils/helpers';

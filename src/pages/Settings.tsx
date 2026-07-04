@@ -29,7 +29,7 @@ export function Settings() {
   const storage = useMemo(() => {
     const raw = getRawSize();
     return { size: formatBytes(raw), bytes: raw };
-  }, [data]);
+  }, []);
 
   const counts = {
     staff: data.staff.length,

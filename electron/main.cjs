@@ -261,7 +261,12 @@ function setupAutoUpdate() {
 
   autoUpdater.on('download-progress', (progress) => {
     debugLog(`📥 EVENT: download-progress (${progress.percent.toFixed(1)}%)`);
-    send('update:downloading', null);
+    send('update:downloading', {
+      percent: Math.round(progress.percent),
+      transferred: progress.transferred,
+      total: progress.total,
+      bytesPerSecond: progress.bytesPerSecond,
+    });
   });
 
   autoUpdater.on('update-downloaded', (info) => {

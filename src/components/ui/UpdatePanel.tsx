@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RefreshCw, CheckCircle2, Download, AlertCircle, X, Zap } from 'lucide-react';
-import { CrestLogo } from './CrestLogo';
 
 type UpdateStatus = 'idle' | 'checking' | 'available' | 'downloading' | 'downloaded' | 'error';
 
@@ -10,6 +9,9 @@ interface UpdateState {
   version?: string;
   error?: string;
   progress?: number;
+  transferred?: number;
+  total?: number;
+  speed?: number;
 }
 
 /**
@@ -50,8 +52,14 @@ export function UpdatePanel() {
       setIsVisible(true);
     });
 
-    const offDownloading = bridge.onUpdateDownloading?.((v) => {
-      setState({ status: 'downloading', version: v, progress: 0 });
+    const offDownloading = bridge.onUpdateDownloading?.((data) => {
+      setState({
+        status: 'downloading',
+        progress: data?.percent ?? 0,
+        transferred: data?.transferred,
+        total: data?.total,
+        speed: data?.bytesPerSecond,
+      });
       setIsVisible(true);
     });
 
@@ -82,10 +90,6 @@ export function UpdatePanel() {
   }, []);
 
   if (state.status === 'idle') return null;
-
-  const handleRestart = () => {
-    window.desktop?.installUpdate();
-  };
 
   return (
     <AnimatePresence>
@@ -176,10 +180,23 @@ export function UpdatePanel() {
                       </>
                     )}
                     {state.status === 'downloading' && (
-                      <>
-                        Sürüm <span className="font-semibold text-sky-500">v{state.version}</span> indiriliyor
-                        {state.progress && <span className="text-discord-blurple/70"> • {state.progress}%</span>}
-                      </>
+                      <div className="space-y-2">
+                        <div className="flex items-baseline gap-2">
+                          <span>Sürüm indiriliyor</span>
+                          <span className="font-semibold text-sky-500">{state.progress ?? 0}%</span>
+                        </div>
+                        {state.transferred && state.total && (
+                          <div className="text-[11px] text-discord-muted space-y-0.5">
+                            <div>{(state.transferred / 1024 / 1024).toFixed(1)} MB / {(state.total / 1024 / 1024).toFixed(1)} MB</div>
+                            {state.speed && <div>Hız: {(state.speed / 1024 / 1024).toFixed(1)} MB/s</div>}
+                            {state.speed && state.transferred && state.total && (
+                              <div>
+                                Kalan: ~{Math.ceil((state.total - state.transferred) / state.speed)}s
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
                     )}
                     {state.status === 'downloaded' && (
                       <>

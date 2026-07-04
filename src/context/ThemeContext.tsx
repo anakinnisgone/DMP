@@ -1,6 +1,6 @@
-import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useState, useEffect, ReactNode } from 'react';
 
-export type Theme = 'light' | 'dark' | 'midnight';
+export type Theme = 'dark' | 'midnight';
 
 export interface ThemeContextType {
   theme: Theme;
@@ -13,14 +13,14 @@ interface ThemeProviderProps {
   children: ReactNode;
 }
 
-export function ThemeProvider({ children }: ThemeProviderProps) {
+function ThemeProvider({ children }: ThemeProviderProps) {
   const [theme, setThemeState] = useState<Theme>('midnight');
   const [mounted, setMounted] = useState(false);
 
   // Load theme from localStorage on mount
   useEffect(() => {
     const savedTheme = localStorage.getItem('dmp-theme') as Theme | null;
-    if (savedTheme && ['light', 'dark', 'midnight'].includes(savedTheme)) {
+    if (savedTheme && ['dark', 'midnight'].includes(savedTheme)) {
       setThemeState(savedTheme);
     }
     setMounted(true);
@@ -45,3 +45,5 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     </ThemeContext.Provider>
   );
 }
+
+export { ThemeProvider };

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { ListChecks, Plus } from 'lucide-react';
 import type { Task } from '../../types';
-import { useData } from '../../store/DataContext';
 import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';
 import { SectionTitle, EmptyState } from '../ui/Common';

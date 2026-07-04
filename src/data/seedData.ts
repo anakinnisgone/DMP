@@ -21,7 +21,6 @@ import { performanceAverage, uid } from '../utils/helpers';
 // ---------------------------------------------------------------------------
 const day = 86400000;
 const daysAgo = (n: number) => new Date(Date.now() - n * day).toISOString();
-const daysFromNow = (n: number) => new Date(Date.now() + n * day).toISOString();
 const hoursAgo = (n: number) => new Date(Date.now() - n * 3600000).toISOString();
 
 function makeTraining(completedCount: number): TrainingRecord[] {
@@ -342,7 +341,7 @@ function buildDiscipline(staff: Staff[]): DisciplineRecord[] {
   ];
 }
 
-function buildActivities(staff: Staff[], tasks: Task[]): Activity[] {
+function buildActivities(staff: Staff[], _tasks: Task[]): Activity[] {
   return [
     { id: uid('act'), type: 'task_completed', message: `${staff[1].name} bir görevi tamamladı: "Günlük kanal denetimi"`, staffId: staff[1].id, createdAt: hoursAgo(3) },
     { id: uid('act'), type: 'promotion_marked', message: `${staff[6].name} terfi adayı olarak işaretlendi`, staffId: staff[6].id, createdAt: hoursAgo(6) },

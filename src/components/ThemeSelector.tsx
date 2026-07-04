@@ -1,4 +1,4 @@
-import { Moon, Sun, Zap } from 'lucide-react';
+import { Moon, Zap } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
 import { Theme } from '../styles/themes';
 
@@ -6,7 +6,6 @@ export function ThemeSelector() {
   const { theme, setTheme } = useTheme();
 
   const themes: Array<{ id: Theme; label: string; icon: React.ReactNode; description: string }> = [
-    { id: 'light', label: '🌞 Light', icon: <Sun size={20} />, description: 'Bright and professional' },
     { id: 'dark', label: '🌙 Dark', icon: <Moon size={20} />, description: 'Modern Discord style' },
     { id: 'midnight', label: '🌌 Midnight', icon: <Zap size={20} />, description: 'Premium default' },
   ];
@@ -18,7 +17,7 @@ export function ThemeSelector() {
           Theme
         </label>
 
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 gap-3">
           {themes.map(({ id, label, icon, description }) => (
             <button
               key={id}
