@@ -1,7 +1,7 @@
 {
     "name":  "discord-yonetim-paneli",
     "private":  true,
-    "version":  "0.8.4",
+    "version":  "0.8.5",
     "type":  "module",
     "description":  "Discord sunucusu yönetim ekibi takip paneli",
     "author":  "Reaper Guild",

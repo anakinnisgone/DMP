@@ -242,7 +242,7 @@ export const CRITERIA_KEYS = Object.keys(CRITERIA_LABELS) as (keyof PerformanceC
 // Uygulama kimliği (tek merkezden yönetilir)
 // ---------------------------------------------------------------------------
 export const APP_NAME = 'Discord Manager Panel';
-export const APP_VERSION = '0.8.4';
+export const APP_VERSION = '0.8.5';
 
 // ---------------------------------------------------------------------------
 // Eğitim modülleri (yeni personele de aynı set atanır)
