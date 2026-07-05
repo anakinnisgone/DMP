@@ -17,7 +17,7 @@ import type {
   Task,
   TaskStatus,
 } from '../types';
-import { validateImport } from '../utils/storage';
+import { dataRepository } from '../data';
 import { useDataState } from './DataStateContext';
 import { download, nowISO, performanceAverage, progressForStatus, uid } from '../utils/helpers';
 import { TRAINING_MODULES } from '../utils/constants';
@@ -402,7 +402,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   };
 
   const importData: DataContextValue['importData'] = (json) => {
-    const valid = validateImport(json);
+    const valid = dataRepository.validateImport(json);
     if (!valid) {
       toast.error('İçe aktarma başarısız', 'Geçersiz dosya biçimi');
       return false;

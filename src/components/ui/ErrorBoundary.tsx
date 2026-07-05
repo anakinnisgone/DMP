@@ -1,6 +1,6 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 import { AlertTriangle, RotateCcw, RefreshCw } from 'lucide-react';
-import { STORAGE_KEY } from '../../utils/constants';
+import { dataRepository } from '../../data';
 
 interface Props {
   children: ReactNode;
@@ -32,12 +32,8 @@ export class ErrorBoundary extends Component<Props, State> {
   };
 
   private handleReset = () => {
-    try {
-      localStorage.removeItem(STORAGE_KEY);
-    } catch {
-      // yok say
-    }
-    window.location.reload();
+    // Silme başarısız olsa bile yeniden yükle; repository hatayı loglar
+    dataRepository.clear().finally(() => window.location.reload());
   };
 
   render() {

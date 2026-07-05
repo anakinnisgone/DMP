@@ -16,19 +16,19 @@ import type {
   TaskPriority,
   TaskStatus,
   TrainingRecord,
-} from '../types';
-import {
-  DATA_VERSION,
-  OWNER_NAME,
-  STORAGE_KEY,
-  TRAINING_MODULES,
-} from './constants';
-import { nowISO, performanceAverage, uid } from './helpers';
-import { createSeedData } from '../data/seedData';
+} from '../../types';
+import { DATA_VERSION, OWNER_NAME, TRAINING_MODULES } from '../../utils/constants';
+import { nowISO, performanceAverage, uid } from '../../utils/helpers';
+import { createSeedData } from '../seedData';
 
 // ---------------------------------------------------------------------------
-// Geçerli enum kümeleri
+// Domain doğrulama katmanı.
+// Depolama teknolojisinden tamamen bağımsızdır: hangi backend'den gelirse
+// gelsin (localStorage, SQLite, PostgreSQL, içe aktarılan JSON) ham veri
+// buradan geçerek geçerli bir AppData'ya dönüştürülür.
 // ---------------------------------------------------------------------------
+
+// Geçerli enum kümeleri
 const ROLES: Role[] = ['leader', 'qa', 'prostaff'];
 const TRACKS: ProStaffTrack[] = ['leader_candidate', 'qa_candidate'];
 const PRIORITIES: TaskPriority[] = ['critical', 'high', 'medium', 'low'];
@@ -58,9 +58,7 @@ const PERF_KEYS: (keyof PerformanceCriteria)[] = [
   'training',
 ];
 
-// ---------------------------------------------------------------------------
 // İlkel değer yardımcıları
-// ---------------------------------------------------------------------------
 type Dict = Record<string, unknown>;
 const asObj = (v: unknown): Dict => (v && typeof v === 'object' ? (v as Dict) : {});
 const str = (v: unknown, d = ''): string => (typeof v === 'string' ? v : d);
@@ -75,9 +73,7 @@ const numClamp = (v: unknown, min: number, max: number, d: number): number => {
   return Math.min(max, Math.max(min, Math.round(n)));
 };
 
-// ---------------------------------------------------------------------------
 // Alt yapı temizleyicileri
-// ---------------------------------------------------------------------------
 function sanitizePerformance(v: unknown): PerformanceCriteria {
   const o = asObj(v);
   const out = {} as PerformanceCriteria;
@@ -204,10 +200,8 @@ function sanitizeActivity(v: unknown): Activity {
   };
 }
 
-// ---------------------------------------------------------------------------
-// Yükleme sırasında yapının bütünlüğünü garanti eder
-// ---------------------------------------------------------------------------
-function normalize(raw: Partial<AppData> | null): AppData {
+/** Ham/bilinmeyen veriyi geçerli bir AppData yapısına dönüştürür. */
+export function normalize(raw: Partial<AppData> | null): AppData {
   if (!raw || typeof raw !== 'object') return createSeedData();
   const r = raw as Dict;
   return {
@@ -223,45 +217,4 @@ function normalize(raw: Partial<AppData> | null): AppData {
       lastUpdated: str(asObj(r.meta).lastUpdated) || nowISO(),
     },
   };
-}
-
-export function loadData(): AppData {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (!stored) {
-      const seed = createSeedData();
-      saveData(seed);
-      return seed;
-    }
-    return normalize(JSON.parse(stored));
-  } catch (err) {
-    console.error('Veri okunamadı, örnek veriye dönülüyor:', err);
-    return createSeedData();
-  }
-}
-
-export function saveData(data: AppData): void {
-  try {
-    const payload: AppData = {
-      ...data,
-      meta: { version: DATA_VERSION, lastUpdated: nowISO() },
-    };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-  } catch (err) {
-    console.error('Veri kaydedilemedi:', err);
-  }
-}
-
-export function getRawSize(): number {
-  const stored = localStorage.getItem(STORAGE_KEY);
-  return stored ? new Blob([stored]).size : 0;
-}
-
-/** Import edilen JSON'un geçerli bir AppData olup olmadığını doğrular ve temizler */
-export function validateImport(json: unknown): AppData | null {
-  if (!json || typeof json !== 'object') return null;
-  const obj = json as Partial<AppData>;
-  // En azından personel ya da görev dizisi bulunmalı
-  if (!Array.isArray(obj.staff) && !Array.isArray(obj.tasks)) return null;
-  return normalize(obj);
 }

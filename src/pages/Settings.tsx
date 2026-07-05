@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState, type ChangeEvent } from 'react';
+import { useEffect, useRef, useState, type ChangeEvent } from 'react';
 import {
   Settings as SettingsIcon,
   Download,
@@ -9,7 +9,7 @@ import {
   Palette,
 } from 'lucide-react';
 import { useData } from '../store/DataContext';
-import { getRawSize } from '../utils/storage';
+import { dataRepository } from '../data';
 import { formatBytes } from '../utils/helpers';
 import { STORAGE_KEY, DATA_VERSION, APP_NAME, APP_VERSION } from '../utils/constants';
 import { PageHeader, SectionTitle } from '../components/ui/Common';
@@ -26,10 +26,17 @@ export function Settings() {
   const fileRef = useRef<HTMLInputElement>(null);
   const [confirmReset, setConfirmReset] = useState(false);
 
-  const storage = useMemo(() => {
-    const raw = getRawSize();
-    return { size: formatBytes(raw), bytes: raw };
-  }, []);
+  const [storageBytes, setStorageBytes] = useState(0);
+  useEffect(() => {
+    let cancelled = false;
+    dataRepository.getSizeBytes().then((bytes) => {
+      if (!cancelled) setStorageBytes(bytes);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [data]);
+  const storage = { size: formatBytes(storageBytes), bytes: storageBytes };
 
   const counts = {
     staff: data.staff.length,
