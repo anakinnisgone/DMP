@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, AlertTriangle, Pin, Pencil, Trash2 } from 'lucide-react';
+import { useMemo, useRef, useState } from 'react';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
+import { ArrowLeft, Pin, Pencil, Trash2 } from 'lucide-react';
 import { useData } from '../store/DataContext';
 import { ROLE_CONFIG, TRACK_CONFIG } from '../utils/constants';
 import { staffTaskCounts } from '../utils/helpers';
@@ -8,7 +8,6 @@ import { Avatar } from '../components/ui/Avatar';
 import { Button } from '../components/ui/Button';
 import { RoleBadge, PromotionBadge } from '../components/ui/Badge';
 import { ConfirmDialog } from '../components/ui/ConfirmDialog';
-import { EmptyState } from '../components/ui/Common';
 import { StaffFormModal } from '../components/staff/StaffFormModal';
 import { StaffPerformanceSection } from '../components/staff/StaffPerformanceSection';
 import { StaffTasksSection } from '../components/staff/StaffTasksSection';
@@ -25,6 +24,10 @@ export function StaffDetail() {
   const staff = getStaff(id);
   const [editStaff, setEditStaff] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  // Silme sürerken bu sayfa "personel yok" durumuna düşmemeli. Silmeyi sayfa
+  // geçişinden sonraki frame'e erteliyoruz (aşağıda handleDelete); bu ref, o
+  // arada olası bir render'da içeriği değiştirmemek için guard görevi görür.
+  const deletingRef = useRef(false);
 
   const tasks = staffTasks(id);
   const notes = staffNotes(id);
@@ -32,20 +35,23 @@ export function StaffDetail() {
   const counts = useMemo(() => staffTaskCounts(data.tasks, id), [data.tasks, id]);
 
   if (!staff) {
-    return (
-      <EmptyState
-        icon={AlertTriangle}
-        title="Personel bulunamadı"
-        action={<Button variant="primary" onClick={() => navigate('/personeller')}>Personellere dön</Button>}
-      />
-    );
+    // Silme sürüyor: navigate zaten yolda, hiçbir şey render etme; içerik
+    // değiştirmek AnimatePresence mode="wait" geçişini kilitler.
+    if (deletingRef.current) return null;
+    // Gerçek geçersiz ID (ör. elle URL): temiz, tek seferlik yönlendirme.
+    return <Navigate to="/personeller" replace />;
   }
 
   const cfg = ROLE_CONFIG[staff.role];
 
   const handleDelete = () => {
-    deleteStaff(id);
+    // Kritik sıra: ÖNCE sayfadan ayrıl, personel hâlâ mevcutken sayfa geçiş
+    // animasyonu temiz başlasın. Silmeyi bir sonraki frame'e ertele; o an
+    // StaffDetail çoktan unmount olmuş olur, "personel yok" render'ı hiç
+    // oluşmaz ve exit animasyonu (dolayısıyla tüm navigasyon) kilitlenmez.
+    deletingRef.current = true;
     navigate('/personeller');
+    requestAnimationFrame(() => deleteStaff(id));
   };
 
   return (
