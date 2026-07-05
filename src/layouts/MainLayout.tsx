@@ -3,7 +3,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { Sidebar } from './Sidebar';
 import { UpdatePanel } from '../components/ui/UpdatePanel';
-import { CompactLogo } from '../components/ui/CompactLogo';
+import { GlobalSearch } from '../components/ui/GlobalSearch';
+import { DLogo } from '../components/ui/DLogo';
 import { APP_NAME, APP_VERSION } from '../utils/constants';
 
 export function MainLayout({ children }: { children: ReactNode }) {
@@ -43,14 +44,13 @@ export function MainLayout({ children }: { children: ReactNode }) {
       {/* İçerik */}
       <div className="flex min-w-0 flex-1 flex-col">
         <UpdatePanel />
+        <GlobalSearch />
         {/* Mobil üst bar */}
         <header className="flex items-center justify-between border-b border-discord-line bg-discord-surface/60 px-4 py-3 backdrop-blur-xl lg:hidden">
           <div className="flex items-center gap-2.5">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-discord-blurple text-white">
-              <CompactLogo size={18} />
-            </span>
+            <DLogo size={30} className="shrink-0" />
             <span className="font-display text-sm font-bold">{APP_NAME}</span>
-            <span className="rounded-full bg-discord-blurple/15 px-1.5 py-0.5 text-[10px] font-semibold text-discord-blurple">
+            <span className="rounded-md bg-gradient-to-r from-discord-blurple/25 to-purple-500/20 px-1.5 py-px text-[10px] font-bold text-discord-blurple ring-1 ring-inset ring-discord-blurple/30">
               v{APP_VERSION}
             </span>
           </div>

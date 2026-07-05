@@ -95,12 +95,6 @@
     box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
   }
 
-  /* Better focus visibility on light background */
-  :root[data-theme='light'] :focus-visible {
-    outline: 2px solid var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
-  }
-
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -121,7 +115,7 @@
   }
 
   .card-hover {
-    @apply transition-all duration-200 hover:border-white/10 hover:bg-discord-card/90;
+    @apply transition-all duration-200 hover:-translate-y-0.5 hover:border-white/10 hover:bg-discord-card/90 hover:shadow-lg hover:shadow-black/20;
   }
 
   .input-base {

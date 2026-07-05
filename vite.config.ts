@@ -17,5 +17,16 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        // Büyük bağımlılıkları ayrı chunk'lara böl: ana bundle küçülür,
+        // tarayıcı/Electron önbelleği sürümler arasında daha iyi çalışır.
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-charts': ['recharts'],
+          'vendor-motion': ['framer-motion'],
+        },
+      },
+    },
   },
 })

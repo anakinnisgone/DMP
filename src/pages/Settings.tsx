@@ -16,7 +16,7 @@ import { PageHeader, SectionTitle } from '../components/ui/Common';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { ConfirmDialog } from '../components/ui/ConfirmDialog';
-import { CrestLogo } from '../components/ui/CrestLogo';
+import { DLogo } from '../components/ui/DLogo';
 import { ThemeSelector } from '../components/ThemeSelector';
 import { useToast } from '../store/ToastContext';
 
@@ -128,9 +128,7 @@ export function Settings() {
           <Card padding="lg">
             <SectionTitle icon={Info}>Hakkında</SectionTitle>
             <div className="flex items-start gap-3">
-              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-discord-blurple text-white">
-                <CrestLogo size={20} />
-              </span>
+              <DLogo size={40} className="shrink-0" />
               <div className="text-sm text-discord-muted">
                 <p className="font-semibold text-discord-text">{APP_NAME} <span className="text-discord-faint">v{APP_VERSION}</span></p>
                 <p className="mt-0.5">
